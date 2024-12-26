@@ -76,7 +76,6 @@ blogRouter.post('/', async (c) => {
       datasourceUrl: c.env.DATABASE_URL
     }).$extends(withAccelerate())
 
-
     try {
         const blog = await prisma.blog.findFirst({
             where:{
