@@ -1,5 +1,5 @@
 import { Hono } from "hono";
-import { PrismaClient } from '@prisma/client/extension';
+import { PrismaClient } from '@prisma/client/edge';
 import { withAccelerate } from '@prisma/extension-accelerate';
 import { decode, sign, verify } from 'hono/jwt';
 
@@ -18,8 +18,9 @@ blogRouter.use("/*", async (c, next) => {
     const user = await verify(authHeader, c.env.JWT_SECRET);
 
     if(user){
-        c.set("jwtPayload", { userId: user.id });
-        next(); 
+        // @ts-ignore
+        c.set("userId", user.id);
+        await next(); 
     }
     else{
         c.status(403); 
@@ -70,8 +71,8 @@ blogRouter.post('/', async (c) => {
     });
   })
   
-  blogRouter.get('/', async (c) => {
-    const body = await c.req.json();
+  blogRouter.get('/:id', async (c) => {
+    const id = c.req.param("id");
     const prisma = new PrismaClient({
       datasourceUrl: c.env.DATABASE_URL
     }).$extends(withAccelerate())
@@ -79,7 +80,7 @@ blogRouter.post('/', async (c) => {
     try {
         const blog = await prisma.blog.findFirst({
             where:{
-                id: body.id
+                id : Number(id)
             }
         });
         
