@@ -26,7 +26,7 @@ blogRouter.post('/', async (c) => {
         data: {
             title: body.title,
             content: body.content,
-            authorId: 1
+            authorId: 1 
         }
     });
     
@@ -80,7 +80,17 @@ blogRouter.post('/', async (c) => {
         });
     }
   })
+
+  //Todo: pagination needed
   
-  blogRouter.get('/bulk', (c) => {
-    return c.text('Hello Hono!')
+  blogRouter.get('/bulk', async (c) => {
+    const prisma = new PrismaClient({
+        datasourceUrl: c.env.DATABASE_URL
+      }).$extends(withAccelerate())
+
+      const blogs = await prisma.blog.findMany(); 
+
+    return c.json({
+        blogs
+    })
   })
