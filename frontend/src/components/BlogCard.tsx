@@ -24,7 +24,7 @@ export const BlogCard = ({authorName, title, content, publishedDate}: BlogCardPr
         <div>
             {content.slice(1,100) + '...'}
         </div>
-        <div>
+        <div className="text-slate-400 font-thin text-base">
             {`${Math.ceil(content.length/100)} min read`}
         </div>
         <div className="bg-slate-200 h-1 w-full">
@@ -35,7 +35,7 @@ export const BlogCard = ({authorName, title, content, publishedDate}: BlogCardPr
 
 function Avatar ({name}: {name: string}){
     return <div>
-        <div className="relative inline-flex items-center justify-center w-4 h-4 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
+        <div className="relative inline-flex items-center justify-center w-6 h-6 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
             <span className="font-medium text-gray-600 dark:text-gray-300">{name[0]}</span>
         </div>
     </div>
