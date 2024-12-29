@@ -7,7 +7,7 @@ interface BlogCardProps{
 
 export const BlogCard = ({authorName, title, content, publishedDate}: BlogCardProps) => {
     return ( 
-    <div>
+    <div className="p-4">
         <div className ="flex">
             <div className="flex justify-center flex-col">
                 <Avatar name={authorName}></Avatar>
@@ -18,13 +18,13 @@ export const BlogCard = ({authorName, title, content, publishedDate}: BlogCardPr
              {publishedDate}
             </div>
         </div>
-        <div>
+        <div className="pt-2">
             {title}
         </div>
-        <div>
-            {content.slice(1,100) + '...'}
+        <div className="text-slate-600 font-thin text-base">
+            {content.slice(0,100) + '...'}
         </div>
-        <div className="text-slate-400 font-thin text-base">
+        <div className="text-slate-400 font-thin text-sm pt-1">
             {`${Math.ceil(content.length/100)} min read`}
         </div>
         <div className="bg-slate-200 h-1 w-full">
