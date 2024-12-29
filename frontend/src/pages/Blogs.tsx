@@ -1,8 +1,10 @@
+import { AppBar } from "../components/AppBar"
 import { BlogCard } from "../components/BlogCard"
 
 
 export const Blogs = () => {
-    return (
+    return ( <div>
+        <AppBar></AppBar>
         <div className="flex justify-center">
             <div className="max-w-xl">
                 <BlogCard 
@@ -27,5 +29,6 @@ export const Blogs = () => {
                 />
             </div>
         </div>
+    </div>
     )
 }
