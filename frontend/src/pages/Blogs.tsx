@@ -4,7 +4,7 @@ import { useBlogs } from "../hooks"
 
 
 export const Blogs = () => {
-    const [loading, blogs] = useBlogs();
+    const {loading, blogs} = useBlogs();
     if(loading) {
         return <div>
             Loading...
@@ -14,12 +14,13 @@ export const Blogs = () => {
     return ( <div>
         <AppBar></AppBar>
         <div className="flex justify-center">
-            <div className="max-w-xl">
+            <div className="">
                 {blogs.map(blog => <BlogCard 
+                    id={blog.id}
                     authorName={blog.author.name || "Anonymous"}
                     title={blog.title} 
                     content={blog.content}
-                    publishedDate={blog.publishedDate} 
+                    publishedDate={"01 jan 2025"} 
                 />)}
             </div>
         </div>
