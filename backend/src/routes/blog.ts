@@ -81,6 +81,38 @@ blogRouter.post('/', async (c) => {
         id: blog.id
     });
   })
+
+  //Todo: pagination needed
+  
+  blogRouter.get('/bulk', async (c) => {
+    const prisma = new PrismaClient({
+        datasourceUrl: c.env.DATABASE_URL
+      }).$extends(withAccelerate())
+
+      try{
+        const blogs = await prisma.blog.findMany({
+            select : {
+                content: true,
+                title: true,
+                id: true,
+                author: {
+                    select: {
+                        name    : true,
+                    }
+                }
+            }
+          }); 
+            return c.json({
+                blogs
+            });
+      }catch(e){
+        c.status(404);
+        return c.json({
+            message: 'No data found'
+        });
+      }
+      
+  })
   
   blogRouter.get('/:id', async (c) => {
     const id = c.req.param("id");
@@ -116,27 +148,4 @@ blogRouter.post('/', async (c) => {
     }
   })
 
-  //Todo: pagination needed
   
-  blogRouter.get('/bulk', async (c) => {
-    const prisma = new PrismaClient({
-        datasourceUrl: c.env.DATABASE_URL
-      }).$extends(withAccelerate())
-
-      const blogs = await prisma.blog.findMany({
-        select : {
-            content: true,
-            title: true,
-            id: true,
-            author: {
-                select: {
-                    name    : true,
-                }
-            }
-        }
-      }); 
-
-    return c.json({
-        blogs
-    })
-  })

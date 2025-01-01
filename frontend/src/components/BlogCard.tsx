@@ -31,7 +31,7 @@ export const BlogCard = ({authorName, title, content, publishedDate, id}: BlogCa
         <div className="text-slate-400 font-thin text-sm pt-1">
             {`${Math.ceil(content.length/100)} min read`}
         </div>
-        <div className="bg-slate-200 h-1 w-full">
+        <div className="h-1 w-full">
         </div>
     </div>
     </Link>
