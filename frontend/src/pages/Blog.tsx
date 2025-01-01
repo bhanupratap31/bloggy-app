@@ -1,3 +1,4 @@
+import { BlogSpinner } from "../components/BlogSpinner";
 import { FullBlog } from "../components/FullBlog";
 import { useBlog } from "../hooks";
 import { useParams } from "react-router-dom";
@@ -8,9 +9,11 @@ export const Blog = () => {
         id: id||"1"
     });
     if(loading) {
-        return <div>
-            Loading...
-        </div>
+        return <div className="h-screen flex flex-col justify-center">
+            <div className="flex justify-center">
+                <BlogSpinner/>
+            </div>
+        </div>  
     }
     return (
         <div>
