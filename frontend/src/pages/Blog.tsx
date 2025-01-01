@@ -8,7 +8,7 @@ export const Blog = () => {
     const {loading, blog} = useBlog({
         id: id||"1"
     });
-    if(loading) {
+    if(loading || !blog) {
         return <div className="h-screen flex flex-col justify-center">
             <div className="flex justify-center">
                 <BlogSpinner/>
